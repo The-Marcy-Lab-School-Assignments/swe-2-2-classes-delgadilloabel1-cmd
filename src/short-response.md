@@ -56,3 +56,12 @@ class Vault {
 Identify what the mistake is, explain why it is a problem, and suggest a way to fix it.
 
 ## Response 4
+The mistake is that listSecrets() returns the private array directly, which allows outside code to modify the internal state of the class. This breaks encapsulation because the private data can be changed without using class methods.
+To fix this, listSecrets() should return a copy of the array instead, such as with the spread operator:
+```js
+listSecrets() {
+  return [...this.#secrets];
+}
+```
+
+This keeps the private data protected from unintended external changes.
