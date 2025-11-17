@@ -16,8 +16,7 @@ With OOP in JavaScript, it's possible to use factory functions to achieve encaps
 How would you explain to a budding developer what the drawbacks of using factory functions are and why it is better to use classes instead?
 
 ## Response 1
-
-
+Factory functions can lead to higher memory usage because each object created has its own copy of methods. Classes, on the other hand, use prototypes, so methods are shared among all instances, making them more memory efficient. Classes also provide built-in support for features like encapsulation and private fields, which help organize and protect data more effectively.
 ---
 
 ## Prompt 2
@@ -25,7 +24,8 @@ How would you explain to a budding developer what the drawbacks of using factory
 Explain what factors you should consider when deciding to make a property/method private? Provide an example to support your response.
 
 ## Response 2
-
+When deciding to make a property or method private, consider whether it should be accessed or modified outside the class and how sensitive the data is. If exposing it could lead to unwanted changes or security risks, it should remain private.
+For example, when creating a login system, you would want to keep the password (and possibly the email) private to protect user information. 
 
 ---
 
@@ -34,8 +34,8 @@ Explain what factors you should consider when deciding to make a property/method
 Explain what factors you should consider when deciding to make a property/method static? Provide an example to support your response.
 
 ## Response 3
-
----
+When deciding to make a property or method static, consider whether it belongs to the class itself rather than individual instances. Static methods are useful when the functionality applies to all objects equally.
+For example, in a class that handles triangle measurements, you could make the formula for calculating the area static, since it doesn’t depend on a specific triangle instance.
 
 ## Prompt 4
 
@@ -56,3 +56,12 @@ class Vault {
 Identify what the mistake is, explain why it is a problem, and suggest a way to fix it.
 
 ## Response 4
+The mistake is that listSecrets() returns the private array directly, which allows outside code to modify the internal state of the class. This breaks encapsulation because the private data can be changed without using class methods.
+To fix this, listSecrets() should return a copy of the array instead, such as with the spread operator:
+```js
+listSecrets() {
+  return [...this.#secrets];
+}
+```
+
+This keeps the private data protected from unintended external changes.
